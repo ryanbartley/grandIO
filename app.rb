@@ -20,7 +20,7 @@ class Person
   property :lastname      , String  , :required => true
   property :email         , String  , :required => true, :format => :email_address, :unique => true
   property :password_salt , String  , :required => true
-  property :password_hash , String  , :required => true
+  property :password_hash , Text    , :required => true
   property :teacher       , Boolean , :default => false, :required => false
   property :interest1     , String  , :required => false
   property :interest2     , String  , :required => false
@@ -158,16 +158,19 @@ post "/signedup" do
         
         #create a new person entry
         
-        raise Exception, p = Person.create(:firstname => params[:firstname], 
+        p = Person.create(:firstname => params[:firstname], 
                           :lastname => params[:lastname], 
                           :email => params[:email],
                           :password_salt => password_salt,
                           :password_hash => password_hash,
                           :teacher => false)
 
-        raise Exception, p
+        if p.save
+
+        else
+            raise Exception, p.errors.inspect
+        end
         #p = Person.new
-  #
         #p.email = session[:email]
         #p.password_salt = password_salt
         #p.password_hash = password_hash
@@ -202,71 +205,33 @@ post "/login" do
   match = Person.first(:email => params[:email])
 
     if match
-      user = match
-      #raise Exception, user
-      if user.password_hash == BCrypt::Engine.hash_secret(params[:password], user.password_salt)
-          session[:email] = user.email
-          session[:year] = user.year
-          
-
-          if user.class1 != nil
-            @class1orig = whichClasses(user.class1)
-            @class1 = user.class1
-      else
-        #raise Exception, "i'm nil"
-        @class1orig = "None"
-        @class1 = "none"
-      end 
-      
-      if user.class2 != nil
-            @class2orig = whichClasses(user.class2)
-            @class2 = user.class2
-      else
-        #raise Exception, "i'm nil"
-        @class2orig = "None"
-        @class2 = "none"
-      end 
-      
-      if user.class3 != nil
-            @class3orig = whichClasses(user.class3)
-            @class3 = user.class3
-      else
-        #raise Exception, "i'm nil"
-        @class3orig = "None"
-        @class3 = "none"
-      end 
-      
-      if user.class4 != nil
-            @class4orig = whichClasses(user.class4)
-            @class4 = user.class4
-      else
-        #raise Exception, "i'm nil"
-        @class4orig = "None"
-        @class4 = "none"
-      end 
-      
-      if user.class5 != nil
-            @class5orig = whichClasses(user.class5)
-            @class5 = user.class5
-      else
-        #raise Exception, "i'm nil"
-        @class5orig = "None"
-        @class5 = "none"
-      end 
-      
-          erb :profile
-          
-      else 
-        erb :error
-      end
+        
+        user = match
+        #raise Exception, user
+        
+        if user.password_hash == BCrypt::Engine.hash_secret(params[:password], user.password_salt)
+        
+            session[:email] = user.email
+            
+            erb :profile
+            
+        else 
+  
+            "The Password didn't match"
+        
+        end
+    
     else
-      erb :error
+    
+        "You didn't get a match"
+    
     end
+
 end
 
 get '/about' do
 
-  @page_title = "About"
+  @page_title = "About Us"
 
   erb :about
 end
@@ -298,12 +263,6 @@ get '/courses/:title' do
 
 end
 
-post '/login' do
-
-    login = Person.first(:email => params[:email])
-
-end
-
 post '/newcourse' do
   course = Course.new
   
@@ -316,7 +275,7 @@ post '/newcourse' do
   
   if course.save
   
-    status 201
+    
     output = ""
   
      output += <<-HTML
@@ -332,11 +291,8 @@ post '/newcourse' do
     <br>
     
      HTML
-    
-    
-    
+        
   else
-    status 412
     
     output = ""
     output += <<-HTML
@@ -351,13 +307,12 @@ post '/newcourse' do
   
 end
 
-#get "/testsave" do
-#    p = Person.new
-#
-#    p.firstname = "hello"
-#
-#    p.save
-#end
+get "/testsave" do
+    p = Person.new(:firstname => 'Jose')
+
+
+
+end
   
   
 
