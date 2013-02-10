@@ -1,0 +1,19 @@
+<div id="frame">
+
+	<h2>COURSES N SHIT</h2>
+	<br />
+	<br />
+
+<% @courses.each do |course| %>
+
+<div class="course">
+		
+		<a href="courses/<%= course.title %>"><%= course.title %></a>  
+		<br>
+		<p>By <%= course.instructor %></p>
+		<br>
+	</div>
+
+
+
+<% end %>

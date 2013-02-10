@@ -1,0 +1,66 @@
+<html lang="en">
+
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+
+<head>
+	<title>
+		<%= @page_title %>
+	</title>
+	<link rel=Stylesheet type="text/css" href="https://s3.amazonaws.com/kleebtronics-media/css/bootstrap.css" />
+	<link rel=Stylesheet type="text/css" href="https://s3.amazonaws.com/kleebtronics-media/css/grandio.css" />
+</head>
+
+<!-- change the class name here -->
+<body class = "fullbodydesign">
+	
+	<div id="container">
+			
+			<div class="row">
+				<div class="span0" style="margin-left: 100px">
+					<h2>
+						<a href="http://itp.nyu.edu/~rtb288/sinatra/grandio/">HOME</a>
+					</h2>
+				</div>
+				<div class="span0" style="margin-left: 100px">
+					<h2>
+						<a href="http://itp.nyu.edu/~rtb288/sinatra/grandio/about">ABOUT</a>
+					</h2>
+				</div>
+				<div class="span2" style="margin-left: 100px">
+					<h2>
+						<a href="http://itp.nyu.edu/~rtb288/sinatra/grandio/courses">COURSES</a>
+					</h2>
+				</div>
+				<div class="span2" style="margin-left: 100px">
+					<h2>
+						<a href="http://itp.nyu.edu/~rtb288/sinatra/grandio/signup">SIGNUP</a>
+					</h2>
+				</div>
+				
+				<!-- This is to decide whether the person is logged in or not -->
+				<% if login? %>
+					<div class="span1 offset1">
+						Hi, <%= @username %>! 
+					</div>
+				<% else %>
+					<form id="login" action="http://itp.nyu.edu/~rtb288/sinatra/grandio/login" method="POST">
+						<div class="span1 offset1">
+							<input style="height: 28px; margin-bottom: 1px" type="text" width="100" name="email" value="email" />
+							<input style="height: 28px; margin-bottom: 1px" type="password" width="100" name="password" value="password" />
+							<input type="submit"  style="margin-left: 173" id="submitImage" name="Login" width="100" value="login" />
+						</div>
+					</form>
+				<% end %>
+
+			</div>
+	</div>
+
+
+
+
+<%= yield %>
+
+
+
+</body>
+</html>

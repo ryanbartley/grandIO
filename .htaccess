@@ -1,0 +1,4 @@
+PassengerEnabled on
+RackBaseURI /sinatra
+PassengerAppRoot /home/rtb288/sinatra/grandio
+RackEnv development

@@ -1,0 +1,17 @@
+<h2>Erase Entries</h2>
+
+
+<% @courses.each do |course| %>
+<br>
+<br>
+<a href="/erase/<%= course.title %>">Erase <%= course.title %> by <%= course.instructor %></a> 
+<br>
+<br>
+
+<% end %>
+
+
+<a href = "/eraseall">ERASE ALL ENTRIES</a>
+
+
+

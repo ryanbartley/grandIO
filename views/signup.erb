@@ -1,0 +1,20 @@
+
+
+<h1> <%= @page_heading %> </h1>
+<br>
+
+<form id="login" action="http://itp.nyu.edu/~rtb288/sinatra/grandio/signedup" method="POST">
+          
+          <div class="span1 offset1">
+              <input style="height: 28px; margin-bottom: 1px" type="text" width="100" name="firstname" value="first name" />
+              <input style="height: 28px; margin-bottom: 1px" type="text" width="100" name="lastname" value="last name" />
+              <input style="height: 28px; margin-bottom: 1px" type="text" width="100" name="email" value="email" />        
+              <input style="height: 28px; margin-bottom: 1px" type="password" width="100" name="password" value="password" />
+              <input style="height: 28px; margin-bottom: 1px" type="password" width="100" name="checkpassword" value="reenter password" />
+              <input type="submit"  style="margin-left: -23"id="submitImage" name="Login" width="100" value="login" />
+          </div>
+            <a href="http://itp.nyu.edu/~rtb288/sinatra/grandio/">
+                <%= @forgotPassword %> 
+            </a>
+
+        </form>

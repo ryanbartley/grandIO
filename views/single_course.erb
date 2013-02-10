@@ -1,0 +1,15 @@
+
+<h1><%= @this_course.title %></h1>
+<br />
+<h3><%= @this_course.date %> by <%= @this_course.instructor %></h3>
+<br>
+<br>
+<p>
+	<%= @this_course.description %>
+</p>
+
+<h3>OTHER SHIT</h3>
+ 
+<% @courses.each do |course| %>
+<a href="/courses/<%= course.title %>"><h3><%= course.title %></h3></a>  
+<% end %>
