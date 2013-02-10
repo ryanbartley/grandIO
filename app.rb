@@ -10,26 +10,26 @@ enable :sessions
 
 DataMapper::setup(:default, {:adapter => 'yaml', :path => 'db'})
 
-DataMapper::Model.raise_on_save_failure = true
+DataMapper::Model.raise_on_save_failure = false
 
 class Person
   include DataMapper::Resource
   
   property :id            , Serial
-  property :firstname     , String
-  property :lastname      , String
-  property :email         , String  , :format => email_address, :unique_index => true
-  property :password_salt , String
-  property :password_hash , String
-  property :teacher       , Boolean , :default => false
-  property :interest1     , String
-  property :interest2     , String
-  property :interest3     , String
-  property :interest4     , String
+  property :firstname     , String  , :required => true
+  property :lastname      , String  , :required => true
+  property :email         , String  , :required => true, :format => :email_address, :unique => true
+  property :password_salt , String  , :required => true
+  property :password_hash , String  , :required => true
+  property :teacher       , Boolean , :default => false, :required => false
+  property :interest1     , String  , :required => false
+  property :interest2     , String  , :required => false
+  property :interest3     , String  , :required => false
+  property :interest4     , String  , :required => false
 
   #belongs_to :courses     , :required => false
 
-  has n, :courses, :through => Resource
+  has n, :courses, :through => Resource, :required => false
 
   def email= new_email
     @email = new_email.downcase
@@ -51,7 +51,7 @@ class Course
   property :instructor  , String,    :required => true
   property :description , Text,      :required => true
   
-  has n, :persons, :through => Resource, :order => [ :date.desc ]
+  has n, :persons, :through => Resource, :order => [ :date.desc ], :required => false
 
   def attending(student)
 
@@ -88,30 +88,30 @@ end
 
 def upcomingCoursesFunc
 
-    allClasses = Course.all
+    Course.all(:order => [ :date.asc ])
     #count up all the courses that are in the next
     #couple of days so that we can display them to
     #people coming to the site
-    if(allClasses)
-
-      #get the exact time on the server when a person starts
-      thisTime = Time.new
-
-        for thisClass in allClasses
-            
-            #check the time and date of the classes and 
-            #figure out if it's within three days. This
-            #needs work
-            if thisClass.Date - thisTime.local.to_date < 3
-               upcomingClasses += thisClass
-            end
-
-        end
-
-        #Once I work out the above this will sort the classes 
-        #and return the sorted classes
-        #sortingTheClasses(upcomingClasses)
-    end
+    #if(allClasses)
+    #
+    #  #get the exact time on the server when a person starts
+    #  thisTime = Time.new
+    #
+    #    for thisClass in allClasses
+    #        
+    #        #check the time and date of the classes and 
+    #        #figure out if it's within three days. This
+    #        #needs work
+    #        if thisClass.Date - thisTime.local.to_date < 3
+    #           upcomingClasses += thisClass
+    #        end
+    #
+    #    end
+    #
+    #    #Once I work out the above this will sort the classes 
+    #    #and return the sorted classes
+    #    #sortingTheClasses(upcomingClasses)
+    #end
 
 end
 
@@ -138,14 +138,6 @@ get '/signup' do
 
 end
 
-get "/testsave" do
-    p = Person.new
-
-    p.firstname = "hello"
-
-    p.save
-end
-
 post "/signedup" do
 
   user = Person.first(:email => params[:email])
@@ -166,7 +158,7 @@ post "/signedup" do
         
         #create a new person entry
         
-        p = Person.create(:firstname => params[:firstname], 
+        raise Exception, p = Person.create(:firstname => params[:firstname], 
                           :lastname => params[:lastname], 
                           :email => params[:email],
                           :password_salt => password_salt,
@@ -359,7 +351,13 @@ post '/newcourse' do
   
 end
 
-
+#get "/testsave" do
+#    p = Person.new
+#
+#    p.firstname = "hello"
+#
+#    p.save
+#end
   
   
 
