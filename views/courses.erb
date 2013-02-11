@@ -4,16 +4,23 @@
 	<br />
 	<br />
 
-<% @courses.each do |course| %>
+	<% @courses.each do |course| %>
+	
+		<div class="course">
+			<a href="courses/<%= course.title %>"><%= course.title %></a>  
+			<br>
+			<p>By <%= course.instructorfirst %> <%= course.instructorlast %></p>
+			<br>
+		</div>
+	
+	<% end %>
 
-<div class="course">
-		
-		<a href="courses/<%= course.title %>"><%= course.title %></a>  
-		<br>
-		<p>By <%= course.instructor %></p>
-		<br>
-	</div>
+	<% if @addcourses %>
 
+	<h2>
+		<a href="http://itp.nyu.edu/~rtb288/sinatra/grandio/addcourse">Add Course</a>
+	</h2>
 
+	<% end %>
 
-<% end %>
+</div>

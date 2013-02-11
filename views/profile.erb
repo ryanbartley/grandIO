@@ -1,0 +1,47 @@
+<div id="frame" style="height: 420px">
+
+    <h1> 
+        <%= @page_heading %> 
+    </h1>
+    
+    <br>
+
+    <form id="login" action="http://itp.nyu.edu/~rtb288/sinatra/grandio/updateprofile" method="POST">
+              
+        <div class="span1 offset1">
+            <input style="height: 28px; margin-bottom: 1px" type="text" width="100" name="firstname" value="<%= @p.firstname.capitalize %>" />
+            <input style="height: 28px; margin-bottom: 1px" type="text" width="100" name="lastname" value="<%= @p.lastname.capitalize %>" />
+            <input style="height: 28px; margin-bottom: 1px" type="text" width="100" name="email" value="<%= @p.email %>" />        
+            <input style="height: 28px; margin-bottom: 1px" type="password" width="100" name="password" placeholder="change password" />
+            <input style="height: 28px; margin-bottom: 1px" type="password" width="100" name="checkpassword" placeholder="reenter changed password" />
+            <select name="interests" style="width: 210px">
+                <% if @p.interest1 %>
+                    <option value="<%= @p.interest1 %>"><%= @p.interest1 %></option>
+                <% else %>
+                    <option value="choose">Choose an interest</option>
+                <% end %>
+                <option value="Computers">Computers</option>
+                <option value="Electronics">Electronics</option>
+                <option value="Literature">Literature</option>
+                <option value="Mathematics">Mathematics</option>
+                <option value="Fabrication">Fabrication</option>
+                <option value="Biking">Biking</option>
+                <option value="Science">Science</option>
+                <option value="Philosophy">Philosophy</option>
+            </select>
+            <br>
+            <div style="width: 210px">
+                Would you like to teach?
+                <% if @p.teacher %>
+                    <input type="radio" name="group1" value="true" checked> Yes <br>
+                    <input type="radio" name="group1" value="false"> No <br>
+                <% else %>
+                    <input type="radio" name="group1" value="true"> Yes <br>
+                    <input type="radio" name="group1" value="false" checked> No <br>
+                <% end %>
+            </div>
+            <input type="submit" style="margin-left: -10" id="submitImage" name="Update" width="100" value="update" />    
+        </div>
+    
+    </form>
+</div>

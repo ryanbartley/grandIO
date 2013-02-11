@@ -10,7 +10,7 @@ enable :sessions
 
 DataMapper::setup(:default, {:adapter => 'yaml', :path => 'db'})
 
-DataMapper::Model.raise_on_save_failure = false
+DataMapper::Model.raise_on_save_failure = true
 
 class Person
   include DataMapper::Resource
@@ -29,7 +29,7 @@ class Person
 
   #belongs_to :courses     , :required => false
 
-  has n, :courses, :through => Resource, :required => false
+  has n, :courses, :through => Resource
 
   def email= new_email
     @email = new_email.downcase
@@ -45,13 +45,15 @@ end
 class Course
   include DataMapper::Resource
 
-  property :slug        , String,    :key => true, :unique_index => true, :default => lambda { | resource, prop| resource.title.downcase.gsub " ", "-" }
-  property :title       , String,    :required => true
-  property :date        , DateTime,  :required => true
-  property :instructor  , String,    :required => true
-  property :description , Text,      :required => true
+  property :slug            , String,    :key => true, :unique_index => true, :default => lambda { | resource, prop| resource.title.downcase.gsub " ", "-" }
+  property :title           , String,    :required => true
+  property :date            , DateTime,  :required => true
+  property :instructorfirst , String,    :required => true
+  property :instructorlast  , String,    :required => true
+  property :description     , Text,      :required => true
   
-  has n, :persons, :through => Resource, :order => [ :date.desc ], :required => false
+  
+  has n, :persons, :through => Resource
 
   def attending(student)
 
@@ -81,7 +83,15 @@ helpers do
     end
 
     def username
-        return session[:email]
+        session[:email]
+    end
+
+    def firstname
+        session[:firstname] 
+    end
+
+    def lastname
+        session[:lastname]
     end
 
 end
@@ -116,7 +126,7 @@ def upcomingCoursesFunc
 end
 
 before do
-    session[:email] = nil
+    #session[:email] = nil
     @upcomingCourses = upcomingCoursesFunc
 end
 
@@ -206,14 +216,16 @@ post "/login" do
 
     if match
         
-        user = match
-        #raise Exception, user
+        @p = match
+        #raise Exception, @p
         
-        if user.password_hash == BCrypt::Engine.hash_secret(params[:password], user.password_salt)
-        
-            session[:email] = user.email
+        if @p.password_hash == BCrypt::Engine.hash_secret(params[:password], @p.password_salt)
             
-            erb :profile
+            session[:email] = @p.email
+            session[:firstname] = @p.firstname.capitalize
+            session[:lastname] = @p.lastname.capitalize
+            
+            redirect "http://itp.nyu.edu/~rtb288/sinatra/grandio/profile"
             
         else 
   
@@ -229,90 +241,151 @@ post "/login" do
 
 end
 
+get '/profile' do
+
+    @p = Person.first(:email => session[:email])
+
+    if @p 
+        #raise Exception, @p
+        @page_title = "Your Profile"
+        @page_heading = "Your Profile"
+        erb :profile
+    else 
+        "You need to login"
+    end
+
+end
+
+post '/updateprofile' do
+
+    p = Person.first(:email => session[:email])
+
+    if p
+
+        if params[:password] != "" && params[:checkpassword] != ""
+            if p.update(:firstname => params[:firstname], 
+                    :lastname => params[:lastname], 
+                    :email => params[:email],
+                    :password_salt => params[:password],
+                    :password_hash => params[:checkpassword],
+                    :teacher => params[:group1], 
+                    :interest1 => params[:interests])
+            else
+                raise Exception, p.errors.inspect
+            end
+        else
+            if p.update(:firstname => params[:firstname], 
+                    :lastname => params[:lastname], 
+                    :email => params[:email],
+                    :password_salt => p.password_salt,
+                    :password_hash => p.password_hash,
+                    :teacher => params[:group1], 
+                    :interest1 => params[:interests])
+            else
+                raise Exception, p.errors.inspect
+            end
+        end
+
+        redirect "http://itp.nyu.edu/~rtb288/sinatra/grandio/profile"
+
+    else
+        "You didn't update anything idiot"
+    end
+
+end
+
+get '/logout' do
+
+    session[:firstname] = nil
+    session[:lastname] = nil
+    session[:email] = nil
+    redirect "http://itp.nyu.edu/~rtb288/sinatra/grandio/"
+
+end
+
 get '/about' do
 
-  @page_title = "About Us"
+    @page_title = "About Us"
+    erb :about
 
-  erb :about
 end
 
 
 get '/addcourse' do
   
-  @page_title = "Add Course"
-  
-  erb :addcourse
+    @page_title = "Add Course"
+    erb :addcourse
   
 end
 
 get '/courses' do
   
-  @courses = Course.all(:order=>[:date.desc])
-  @page_title = "Courses"
+    if session[:email]
+      p = Person.first(:email => session[:email])
   
-  erb :courses
+      if p.teacher == true
+          @addcourses = true
+      else 
+          @addcourses = false
+      end
+    end
+  
+      @courses = Course.all(:order=>[:date.desc])
+      @page_title = "Courses"
+      
+      erb :courses
   
 end
 
 get '/courses/:title' do
-  @courses = Course.all 
-  @this_course = Course.first(:title => params[:title])
-  @page_title = ":title"
 
-  erb :single_course
+    @courses = Course.all 
+    @this_course = Course.first(:title => params[:title])
+    @page_title = ":title"
+  
+    erb :single_course
 
 end
 
 post '/newcourse' do
-  course = Course.new
   
-  course.id = params[:id]
-  course.title = params[:title]
-  course.instructor = params[:instructor]
-  course.date = params[:date]
-  course.description = params[:description]
- 
-  
-  if course.save
-  
+    p = Person.first(:email => session[:email])
     
-    output = ""
+    if p.teacher == true
   
-     output += <<-HTML
-     Sucess!
-     <br>
-     <a href = "/addcourse">Add another course</a>
-     <br>
-     <br>
-     <a href = "/courses">See all course</a>
-     <br>
-     <br>
-    <h2><a href=  "/erase">Edit entries</a></h2>
-    <br>
-    
-     HTML
+
+      if @course = Course.create(:date => params[:date],
+                             :instructorfirst => p.firstname,
+                             :instructorlast => p.lastname,
+                             :title => params[:title],
+                             :description => params[:description])
         
-  else
-    
-    output = ""
-    output += <<-HTML
-    Error - Could not enter course
-    <br>
-    <br>
-    <a href="/addcourse">Try Again</a>
-    <br>
-    HTML
-  end
-  output
-  
+        if @course.persons << p 
+
+          if p.courses << @course
+
+            if @course.save && p.save
+
+                redirect "http://itp.nyu.edu/~rtb288/sinatra/grandio/courses"
+            else
+                raise Exception, "I'm inside"
+                "Your course didn't save." 
+            end
+          else
+            "Your courses didn't setup with the person"
+          end
+        else
+            "It didn't save"
+        end
+      else
+        raise Exception, course.errors.inspect
+      end
+    else
+        "You're not a teacher"
+    end     
 end
 
-get "/testsave" do
-    p = Person.new(:firstname => 'Jose')
 
-
-
-end
   
   
 

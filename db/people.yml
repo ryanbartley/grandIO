@@ -1,1 +1,23 @@
-
+--- 
+- email: ryanbartley@gmail.com
+  teacher: true
+  lastname: Bartley
+  password_salt: $2a$10$gnrBYQ.vM2KjO3v8GqBolO
+  firstname: Ryan
+  password_hash: $2a$10$gnrBYQ.vM2KjO3v8GqBolOhRNbCPjGmYnaRFhsptu6xA1tKzjWF5W
+  interest1: Mathematics
+  interest4: 
+  interest2: 
+  interest3: 
+  id: 1
+- lastname: Kleeb
+  email: mark@kleebtronics.com
+  teacher: false
+  firstname: Mark
+  password_salt: $2a$10$1d8PZQeebeSfpoQMqVfVMe
+  password_hash: $2a$10$1d8PZQeebeSfpoQMqVfVMehwPuMrgAY013YB0A7YYhyNm3m/NpR5W
+  interest4: 
+  interest3: 
+  interest2: 
+  interest1: 
+  id: 2

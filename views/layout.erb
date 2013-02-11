@@ -11,48 +11,78 @@
 </head>
 
 <!-- change the class name here -->
-<body class = "fullbodydesign">
+<body class = "fullbodydesign" >
 	
-	<div id="container">
-			
-			<div class="row">
-				<div class="span0" style="margin-left: 100px">
+	<div id="container" style="width: 800px">
+		
+		<!-- This is to decide whether the person is logged in or not -->
+
+		<% if login? %> 
+		
+			<div class="row" style="width: 80%; margin-left: auto; margin-right: auto">
+				<div class="span0" style="margin-left: 0px">
 					<h2>
 						<a href="http://itp.nyu.edu/~rtb288/sinatra/grandio/">HOME</a>
 					</h2>
 				</div>
-				<div class="span0" style="margin-left: 100px">
+				<div class="span0" style="margin-left: 70px">
 					<h2>
 						<a href="http://itp.nyu.edu/~rtb288/sinatra/grandio/about">ABOUT</a>
 					</h2>
 				</div>
-				<div class="span2" style="margin-left: 100px">
+				<div class="span2" style="margin-left: 50px">
 					<h2>
 						<a href="http://itp.nyu.edu/~rtb288/sinatra/grandio/courses">COURSES</a>
 					</h2>
 				</div>
-				<div class="span2" style="margin-left: 100px">
+				
+					
+				<div class="span2" style="margin-left: 43px; width: 120; font-size: 15px; margin-top: 3px">
+					Hi, <%= firstname %> <%= lastname %>! 
+				</div>
+				<div class="span0" style="margin-top: 0px">
+					<a href="http://itp.nyu.edu/~rtb288/sinatra/grandio/profile" style="margin-left: 30px; font-size: 15px">PROFILE</a> 
+					||
+					<a href="http://itp.nyu.edu/~rtb288/sinatra/grandio/logout" style="margin-left: 0px; font-size: 15px">LOGOUT</a>
+				</div>
+
+			</div>
+
+		<% else %>
+
+			<div class="row" style="width: 100%; margin-left: auto; margin-right: auto">
+				<div class="span0" style="margin-left: 20px">
+					<h2>
+						<a href="http://itp.nyu.edu/~rtb288/sinatra/grandio/">HOME</a>
+					</h2>
+				</div>
+				<div class="span0" style="margin-left: 70px">
+					<h2>
+						<a href="http://itp.nyu.edu/~rtb288/sinatra/grandio/about">ABOUT</a>
+					</h2>
+				</div>
+				<div class="span2" style="margin-left: 50px">
+					<h2>
+						<a href="http://itp.nyu.edu/~rtb288/sinatra/grandio/courses">COURSES</a>
+					</h2>
+				</div>
+				<div class="span2" style="margin-left: 30px">
 					<h2>
 						<a href="http://itp.nyu.edu/~rtb288/sinatra/grandio/signup">SIGNUP</a>
 					</h2>
 				</div>
-				
-				<!-- This is to decide whether the person is logged in or not -->
-				<% if login? %>
-					<div class="span1 offset1">
-						Hi, <%= @username %>! 
+				<form id="login" action="http://itp.nyu.edu/~rtb288/sinatra/grandio/login" method="POST">
+					<div class="span1 offset1" style="margin-left: 50px">
+						<input style="height: 28px; width: 150px; margin-bottom: 1px" type="text" width="100" name="email" placeholder="email" />
+						<input style="height: 28px; width: 150px; margin-bottom: 1px" type="password" width="100" name="password" placeholder="password" />
+						<input type="submit"  style="margin-left: 100" id="submitImage" name="Login" width="100" placeholder="login" />
 					</div>
-				<% else %>
-					<form id="login" action="http://itp.nyu.edu/~rtb288/sinatra/grandio/login" method="POST">
-						<div class="span1 offset1">
-							<input style="height: 28px; margin-bottom: 1px" type="text" width="100" name="email" value="email" />
-							<input style="height: 28px; margin-bottom: 1px" type="password" width="100" name="password" value="password" />
-							<input type="submit"  style="margin-left: 173" id="submitImage" name="Login" width="100" value="login" />
-						</div>
-					</form>
-				<% end %>
+				</form>
 
 			</div>
+
+		<% end %>
+
 	</div>
 
 
