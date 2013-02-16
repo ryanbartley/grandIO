@@ -1,73 +1,103 @@
 --- 
-- slug: biking-in-new-york
+- title: Biking in New York
   description: df
-  instructorlast: Bartley
-  title: Biking in New York
-  instructorfirst: Ryan
   date: 2013-01-11 19:00:00 -05:00
-- slug: biking-in-new-york
+  instructorfirst: Ryan
+  instructorlast: Bartley
+  slug: biking-in-new-york
+- title: Biking in New York
   description: df
-  instructorlast: Bartley
-  title: Biking in New York
-  instructorfirst: Ryan
   date: 2013-01-11 19:00:00 -05:00
-- slug: this-is-awesome
+  instructorfirst: Ryan
+  instructorlast: Bartley
+  slug: biking-in-new-york
+- title: This is awesome
   description: fas
-  instructorlast: Bartley
-  title: This is awesome
-  date: 2013-01-11 19:00:00 -05:00
   instructorfirst: Ryan
-- slug: this-is-awesome
+  date: 2013-01-11 19:00:00 -05:00
+  instructorlast: Bartley
+  slug: this-is-awesome
+- title: This is awesome
   description: fas
-  instructorlast: Bartley
-  title: This is awesome
-  date: 2013-01-11 19:00:00 -05:00
   instructorfirst: Ryan
-- slug: this-is-awesome
+  date: 2013-01-11 19:00:00 -05:00
+  instructorlast: Bartley
+  slug: this-is-awesome
+- title: This is awesome
   description: fas
-  instructorlast: Bartley
-  title: This is awesome
-  instructorfirst: Ryan
   date: 2013-01-11 19:00:00 -05:00
-- slug: this-is-awesome
+  instructorfirst: Ryan
+  instructorlast: Bartley
+  slug: this-is-awesome
+- title: This is awesome
   description: fas
-  instructorlast: Bartley
-  title: This is awesome
-  date: 2013-01-11 19:00:00 -05:00
-  instructorfirst: Ryan
-- slug: this-is-awesome
-  description: asdf
-  instructorlast: Bartley
-  title: This is awesome
   instructorfirst: Ryan
   date: 2013-01-11 19:00:00 -05:00
-- slug: this-is-awesome
-  description: asdf
   instructorlast: Bartley
-  title: This is awesome
+  slug: this-is-awesome
+- title: This is awesome
+  description: asdf
+  date: 2013-01-11 19:00:00 -05:00
+  instructorfirst: Ryan
+  instructorlast: Bartley
+  slug: this-is-awesome
+- title: This is awesome
+  description: asdf
+  date: 2013-01-11 19:00:00 -05:00
+  instructorfirst: Ryan
+  instructorlast: Bartley
+  slug: this-is-awesome
+- title: This is awesome
+  description: asdf
+  date: 2013-01-11 19:00:00 -05:00
+  instructorfirst: Ryan
+  instructorlast: Bartley
+  slug: this-is-awesome
+- title: This is awesome
+  description: asdf
+  date: 2013-01-11 19:00:00 -05:00
+  instructorfirst: Ryan
+  instructorlast: Bartley
+  slug: this-is-awesome
+- title: This is awesome
+  description: asdf
+  date: 2013-01-11 19:00:00 -05:00
+  instructorfirst: Ryan
+  instructorlast: Bartley
+  slug: this-is-awesome
+- title: This is awesome
+  description: asdf
   instructorfirst: Ryan
   date: 2013-01-11 19:00:00 -05:00
-- slug: this-is-awesome
-  description: asdf
   instructorlast: Bartley
-  title: This is awesome
+  slug: this-is-awesome
+- title: Biking in New York
+  description: zskjlaksjl;dalksjal;
+  date: 2013-02-26 19:00:00 -05:00
   instructorfirst: Ryan
-  date: 2013-01-11 19:00:00 -05:00
-- slug: this-is-awesome
-  description: asdf
   instructorlast: Bartley
-  title: This is awesome
-  instructorfirst: Ryan
-  date: 2013-01-11 19:00:00 -05:00
-- slug: this-is-awesome
-  description: asdf
-  instructorlast: Bartley
-  title: This is awesome
-  instructorfirst: Ryan
-  date: 2013-01-11 19:00:00 -05:00
-- slug: this-is-awesome
-  description: asdf
-  instructorlast: Bartley
-  title: This is awesome
-  date: 2013-01-12T00:00:00+00:00
-  instructorfirst: Ryan
+  slug: biking-in-new-york
+- title: Test Course
+  description: test course description
+  instructorfirst: Mark
+  date: 2013-09-29 20:00:00 -04:00
+  instructorlast: Kleeb
+  slug: test-course
+- title: How to bike
+  description: I will teach you how to bike
+  instructorfirst: Mick
+  date: 2013-01-16 19:00:00 -05:00
+  instructorlast: Hondlick
+  slug: how-to-bike
+- title: How to Play the Drums
+  description: Learn the basics of rhythm through basic drum beats. Each person will have the opportunity to play on an actual drum kit, and we'll work through 4/4, 3/4, and 6/8 tempos.
+  instructorfirst: Mark
+  date: 2013-02-20 19:00:00 -05:00
+  instructorlast: Kleeb
+  slug: how-to-play-the-drums
+- title: hdfkfhdjskfhsjdkfhdk
+  description: fdsfjdshfjdskhfk
+  instructorfirst: Patiiiiiiiiiii
+  date: 2013-02-14T00:00:00+00:00
+  instructorlast: Zablah
+  slug: hdfkfhdjskfhsjdkfhdk

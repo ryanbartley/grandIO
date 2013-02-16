@@ -168,17 +168,17 @@ post "/signedup" do
         
         #create a new person entry
         
-        p = Person.create(:firstname => params[:firstname], 
+        @p = Person.create(:firstname => params[:firstname], 
                           :lastname => params[:lastname], 
                           :email => params[:email],
                           :password_salt => password_salt,
                           :password_hash => password_hash,
                           :teacher => false)
 
-        if p.save
+        if @p.save
 
         else
-            raise Exception, p.errors.inspect
+            raise Exception, @p.errors.inspect
         end
         #p = Person.new
         #p.email = session[:email]
@@ -341,6 +341,7 @@ get '/courses/:title' do
 
     @courses = Course.all 
     @this_course = Course.first(:title => params[:title])
+    #raise Exception, @date = @this_course.strftime([format='%A %d %b %Y'])
     @page_title = ":title"
   
     erb :single_course

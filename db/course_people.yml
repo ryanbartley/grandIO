@@ -1,3 +1,13 @@
 --- 
 - person_id: 1
   course_slug: this-is-awesome
+- person_id: 1
+  course_slug: biking-in-new-york
+- person_id: 2
+  course_slug: test-course
+- course_slug: how-to-bike
+  person_id: 3
+- person_id: 2
+  course_slug: how-to-play-the-drums
+- person_id: 4
+  course_slug: hdfkfhdjskfhsjdkfhdk
